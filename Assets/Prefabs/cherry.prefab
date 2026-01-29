@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7832339357330320225}
   - component: {fileID: 8792738706521358540}
   - component: {fileID: -1925399697175807916}
+  - component: {fileID: 526544329281745174}
   m_Layer: 0
   m_Name: cherry
   m_TagString: Untagged
@@ -96,6 +97,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 5
+--- !u!114 &526544329281745174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200209715651326965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15047bef12a9d924d9c79345b5eb4ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyY: -10
 --- !u!1 &7864916078457899820
 GameObject:
   m_ObjectHideFlags: 0
