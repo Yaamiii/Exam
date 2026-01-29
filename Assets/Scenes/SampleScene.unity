@@ -148,7 +148,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2dc94321d6dc14f8d46e8e56a9a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitPrefab: {fileID: 1200209715651326965, guid: 66f434fc52e00bf4ead743f5e24ac95f, type: 3}
+  fruitPrefabs:
+  - {fileID: 1200209715651326965, guid: 66f434fc52e00bf4ead743f5e24ac95f, type: 3}
+  - {fileID: 2591473902292696417, guid: 1bba50543e5551944ae03197e93299da, type: 3}
+  - {fileID: 766629640110241861, guid: 96a07db679bef3547b85f203613d6013, type: 3}
+  - {fileID: 8668009080384900715, guid: 3b0c9ddd1daf0d749b21a93305145a01, type: 3}
+  - {fileID: 3884777881050663462, guid: b9758af252e97654f85e9713fa4c4c47, type: 3}
+  bombPrefab: {fileID: 3443434026947695868, guid: 785b5a64aa585d2438f4c0bb503c077f, type: 3}
+  bombSpawnChance: 0.2
   spawnXRange: 1.5
   spawnYPosition: 2.1
   spawnInterval: 2
