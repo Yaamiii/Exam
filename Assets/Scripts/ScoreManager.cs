@@ -1,28 +1,30 @@
 using UnityEngine;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-
-    // Current game score
     public int score = 0;
+    public TextMeshProUGUI scoreText;
+
+    void Start()
+    {
+        UpdateScoreText();
+    }
 
     public void AddScore(int value)
     {
-        // Increase the score
         score += value;
-
-        // Show score in the Console
-        Debug.Log("Score: " + score);
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+        UpdateScoreText();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetScore()
     {
-        
+        score = 0;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
     }
 }
