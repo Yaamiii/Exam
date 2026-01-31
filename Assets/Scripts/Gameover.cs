@@ -2,27 +2,31 @@ using UnityEngine;
 
 public class Gameover : MonoBehaviour
 {
+    public GameObject explosionPrefab;
+    public float explosionDuration = 2f;
+
     private void OnTriggerEnter(Collider other)
     {
-        GameManager gameManager = FindFirstObjectByType<GameManager>();
+        // Spawn explosion effect at bomb position
+        if (explosionPrefab != null)
+        {
+            GameObject explosion = Instantiate(
+                explosionPrefab,
+                transform.position,
+                transform.rotation
+            );
 
-        // Remove bomb immediately
+            Destroy(explosion, explosionDuration);
+        }
+
+        // Remove bomb
         Destroy(gameObject);
 
+        // Trigger game over
+        GameManager gameManager = FindFirstObjectByType<GameManager>();
         if (gameManager != null)
         {
             gameManager.TriggerGameOver();
         }
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

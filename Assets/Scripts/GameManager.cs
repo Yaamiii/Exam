@@ -6,26 +6,24 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverText;
     public float restartDelay = 2f;
 
-    private bool isGameOver;
-    private float restartTimer;
-   
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isGameOver = false;
+    private float restartTimer = 0f;
+
     void Start()
     {
+        // Hide Game Over text at the beginning
         gameOverText.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // If game over, count time using real time (not affected by timeScale)
+        // If the game is over, count time and restart the scene
         if (isGameOver)
         {
-            restartTimer += Time.unscaledDeltaTime;
+            restartTimer += Time.deltaTime;
 
             if (restartTimer >= restartDelay)
             {
-                Time.timeScale = 1f;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
@@ -33,17 +31,31 @@ public class GameManager : MonoBehaviour
 
     public void TriggerGameOver()
     {
+        // Mark the game as over
         isGameOver = true;
         restartTimer = 0f;
 
+        // Reset the score
         ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
         if (scoreManager != null)
         {
-            scoreManager.score = 0;
-            Debug.Log("Score: " + scoreManager.score);
+            scoreManager.ResetScore();
         }
 
+        // Show Game Over text
         gameOverText.SetActive(true);
-        Time.timeScale = 0f;
+
+        // Stop gameplay scripts
+        SpawnManager spawner = FindFirstObjectByType<SpawnManager>();
+        if (spawner != null)
+        {
+            spawner.enabled = false;
+        }
+
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+        if (player != null)
+        {
+            player.enabled = false;
+        }
     }
 }
