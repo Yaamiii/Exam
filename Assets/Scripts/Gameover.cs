@@ -3,23 +3,30 @@ using UnityEngine;
 public class Gameover : MonoBehaviour
 {
     public GameObject explosionPrefab;
+    public AudioClip explosionSound;
     public float explosionDuration = 2f;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Spawn explosion effect at bomb position
+        // Spawn explosion effect
         if (explosionPrefab != null)
         {
             GameObject explosion = Instantiate(
                 explosionPrefab,
                 transform.position,
-                transform.rotation
+                Quaternion.identity
             );
 
             Destroy(explosion, explosionDuration);
         }
 
-        // Remove bomb
+        // Play explosion sound
+        if (explosionSound != null)
+        {
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        }
+
+        // Destroy bomb
         Destroy(gameObject);
 
         // Trigger game over

@@ -1,33 +1,28 @@
 using UnityEngine;
 
-public class Add : MonoBehaviour
+public class AddScore : MonoBehaviour
 {
-    // Points given when this object is collected
     public int points = 5;
+
+    // Sound played when fruit is collected
+    public AudioClip pickupSound;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Find the ScoreManager in the scene
-        ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
+        // Play pickup sound
+        if (pickupSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
 
-        // Add points if ScoreManager exists
+        // Add score
+        ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
         if (scoreManager != null)
         {
             scoreManager.AddScore(points);
         }
 
-        // Destroy this object after being collected
+        // Destroy the fruit
         Destroy(gameObject);
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -6,18 +6,27 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverText;
     public float restartDelay = 2f;
 
+    // Background music
+    public AudioSource musicSource;
+
     private bool isGameOver = false;
     private float restartTimer = 0f;
 
     void Start()
     {
-        // Hide Game Over text at the beginning
+        // Hide Game Over text at start
         gameOverText.SetActive(false);
+
+        // Start background music
+        if (musicSource != null)
+        {
+            musicSource.Play();
+        }
     }
 
     void Update()
     {
-        // If the game is over, count time and restart the scene
+        // After game over, wait and restart the scene
         if (isGameOver)
         {
             restartTimer += Time.deltaTime;
@@ -31,18 +40,23 @@ public class GameManager : MonoBehaviour
 
     public void TriggerGameOver()
     {
-        // Mark the game as over
         isGameOver = true;
         restartTimer = 0f;
 
-        // Reset the score
+        // Stop background music
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+        }
+
+        // Reset score
         ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
         if (scoreManager != null)
         {
             scoreManager.ResetScore();
         }
 
-        // Show Game Over text
+        // Show Game Over UI
         gameOverText.SetActive(true);
 
         // Stop gameplay scripts
