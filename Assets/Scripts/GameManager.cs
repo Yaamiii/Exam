@@ -71,5 +71,14 @@ public class GameManager : MonoBehaviour
         {
             player.enabled = false;
         }
+
+        // Wizard reaction on game over
+        WizardController wizard = FindFirstObjectByType<WizardController>();
+        if (wizard != null)
+        {
+            wizard.PlayNo();
+        }
+
     }
+
 }

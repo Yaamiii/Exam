@@ -24,6 +24,13 @@ public class ScoreManager : MonoBehaviour
 
         // Update the UI text so the player sees the new score immediately
         UpdateScoreText();
+
+        // Make the wizard jump every 100 points
+        WizardController wizard = FindFirstObjectByType<WizardController>();
+        if (wizard != null && score % 50 == 0)
+        {
+            wizard.PlayJump();
+        }
     }
 
     // Called when the game ends (bomb collected)
