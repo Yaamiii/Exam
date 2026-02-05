@@ -3,38 +3,46 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("UI")]
     public GameObject gameOverText;
+
+    [Header("Restart")]
     public float restartDelay = 2f;
 
-    // Background music
+    [Header("Audio")]
     public AudioSource musicSource;
+
+    [Header("References")]
+    public SpawnManager spawner;
+    public PlayerController player;
+    public ScoreManager scoreManager;
+    public WizardController wizard;
 
     private bool isGameOver = false;
     private float restartTimer = 0f;
 
-    void Start()
+    private void Start()
     {
-        // Hide Game Over text at start
-        gameOverText.SetActive(false);
+        if (gameOverText != null)
+        {
+            gameOverText.SetActive(false);
+        }
 
-        // Start background music
         if (musicSource != null)
         {
             musicSource.Play();
         }
     }
 
-    void Update()
+    private void Update()
     {
-        // After game over, wait and restart the scene
-        if (isGameOver)
-        {
-            restartTimer += Time.deltaTime;
+        if (!isGameOver) return;
 
-            if (restartTimer >= restartDelay)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+        restartTimer += Time.deltaTime;
+
+        if (restartTimer >= restartDelay)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -43,42 +51,34 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         restartTimer = 0f;
 
-        // Stop background music
         if (musicSource != null)
         {
             musicSource.Stop();
         }
 
-        // Reset score
-        ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
         if (scoreManager != null)
         {
             scoreManager.ResetScore();
         }
 
-        // Show Game Over UI
-        gameOverText.SetActive(true);
+        if (gameOverText != null)
+        {
+            gameOverText.SetActive(true);
+        }
 
-        // Stop gameplay scripts
-        SpawnManager spawner = FindFirstObjectByType<SpawnManager>();
         if (spawner != null)
         {
             spawner.enabled = false;
         }
 
-        PlayerController player = FindFirstObjectByType<PlayerController>();
         if (player != null)
         {
             player.enabled = false;
         }
 
-        // Wizard reaction on game over
-        WizardController wizard = FindFirstObjectByType<WizardController>();
         if (wizard != null)
         {
             wizard.PlayNo();
         }
-
     }
-
 }

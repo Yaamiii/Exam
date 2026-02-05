@@ -9,48 +9,49 @@ public class SpawnManager : MonoBehaviour
 
     public float spawnXRange = 1.5f;
     public float spawnYPosition = 2.1f;
-    public float spawnInterval = 10f;
+    public float spawnInterval = 1.0f;
 
-    private float timer;
+    private float timer = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Keeps track of time so objects don't spawn every frame
         timer += Time.deltaTime;
 
-        // Spawn an object when the interval is reached
         if (timer >= spawnInterval)
         {
             SpawnObject();
             timer = 0f;
         }
     }
-    void SpawnObject()
+
+    private void SpawnObject()
     {
-        // Choose a random position within the horizontal range
+        // Safety check
+        if (fruitPrefabs == null || fruitPrefabs.Length == 0)
+        {
+            return;
+        }
+
         Vector3 spawnPosition = new Vector3(
             Random.Range(-spawnXRange, spawnXRange),
             spawnYPosition,
             0f
         );
 
-        // Decide if we spawn a bomb or a fruit
-        if (Random.value < bombSpawnChance)
+        // Spawn bomb or fruit
+        if (Random.value < bombSpawnChance && bombPrefab != null)
         {
             Instantiate(bombPrefab, spawnPosition, bombPrefab.transform.rotation);
         }
         else
         {
             int randomIndex = Random.Range(0, fruitPrefabs.Length);
-            Instantiate(fruitPrefabs[randomIndex], spawnPosition, fruitPrefabs[randomIndex].transform.rotation);
+            GameObject fruitToSpawn = fruitPrefabs[randomIndex];
+
+            if (fruitToSpawn != null)
+            {
+                Instantiate(fruitToSpawn, spawnPosition, fruitToSpawn.transform.rotation);
+            }
         }
     }
-
 }

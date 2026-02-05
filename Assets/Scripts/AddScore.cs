@@ -3,26 +3,30 @@ using UnityEngine;
 public class AddScore : MonoBehaviour
 {
     public int points = 5;
+    public AudioClip collectSound;
 
-    // Sound played when fruit is collected
-    public AudioClip pickupSound;
+    private ScoreManager scoreManager;
+
+    private void Start()
+    {
+        scoreManager = GameObject.Find("ScoreManager")
+                                 .GetComponent<ScoreManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Play pickup sound
-        if (pickupSound != null)
-        {
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-        }
+        if (!other.CompareTag("Player")) return;
 
-        // Add score
-        ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
         if (scoreManager != null)
         {
             scoreManager.AddScore(points);
         }
 
-        // Destroy the fruit
+        if (collectSound != null)
+        {
+            AudioSource.PlayClipAtPoint(collectSound, transform.position);
+        }
+
         Destroy(gameObject);
     }
 }

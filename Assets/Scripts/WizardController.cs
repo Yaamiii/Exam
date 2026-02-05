@@ -4,21 +4,24 @@ public class WizardController : MonoBehaviour
 {
     private Animator wizardAnimator;
 
-    void Start()
+    private void Start()
     {
-        // Get the Animator component from this GameObject
         wizardAnimator = GetComponent<Animator>();
     }
 
     public void PlayJump()
     {
-        // Play the Jump animation (Trigger parameter)
-        wizardAnimator.SetTrigger("Jump");
+        if (wizardAnimator != null)
+        {
+            wizardAnimator.SetTrigger("Jump");
+        }
     }
 
     public void PlayNo()
     {
-        // Play the No animation (Trigger parameter)
-        wizardAnimator.SetTrigger("No");
+        if (wizardAnimator != null)
+        {
+            wizardAnimator.SetTrigger("No");
+        }
     }
 }

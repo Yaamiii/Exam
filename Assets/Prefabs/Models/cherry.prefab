@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 5
-  pickupSound: {fileID: 8300000, guid: 0bc7cf8d6641d824ea0f1bffe2ff63e4, type: 3}
+  collectSound: {fileID: 8300000, guid: 0bc7cf8d6641d824ea0f1bffe2ff63e4, type: 3}
 --- !u!114 &526544329281745174
 MonoBehaviour:
   m_ObjectHideFlags: 0
