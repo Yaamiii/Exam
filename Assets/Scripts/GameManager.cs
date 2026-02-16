@@ -23,19 +23,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (gameOverText != null)
-        {
-            gameOverText.SetActive(false);
-        }
-
-        if (musicSource != null)
-        {
-            musicSource.Play();
-        }
+        // Hide Game Over text and start background music
+        gameOverText.SetActive(false);
+        musicSource.Play();
     }
 
     private void Update()
     {
+        // After Game Over, wait and reload the scene
         if (!isGameOver) return;
 
         restartTimer += Time.deltaTime;
@@ -48,37 +43,20 @@ public class GameManager : MonoBehaviour
 
     public void TriggerGameOver()
     {
+        // Activate Game Over state
         isGameOver = true;
         restartTimer = 0f;
 
-        if (musicSource != null)
-        {
-            musicSource.Stop();
-        }
+        // Stop music and reset score
+        musicSource.Stop();
+        scoreManager.ResetScore();
 
-        if (scoreManager != null)
-        {
-            scoreManager.ResetScore();
-        }
+        // Show UI and stop gameplay systems
+        gameOverText.SetActive(true);
+        spawner.enabled = false;
+        player.enabled = false;
 
-        if (gameOverText != null)
-        {
-            gameOverText.SetActive(true);
-        }
-
-        if (spawner != null)
-        {
-            spawner.enabled = false;
-        }
-
-        if (player != null)
-        {
-            player.enabled = false;
-        }
-
-        if (wizard != null)
-        {
-            wizard.PlayNo();
-        }
+        // Play wizard reaction animation
+        wizard.PlayNo();
     }
 }

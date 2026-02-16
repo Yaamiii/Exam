@@ -5,7 +5,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] fruitPrefabs;
     public GameObject bombPrefab;
 
-    public float bombSpawnChance = 0.1f; // 10% bombs
+    public float bombSpawnChance = 0.1f;
 
     public float spawnXRange = 1.5f;
     public float spawnYPosition = 2.1f;
@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Update()
     {
+        // Count time between spawns
         timer += Time.deltaTime;
 
         if (timer >= spawnInterval)
@@ -26,19 +27,20 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnObject()
     {
-        // Safety check
+        // Prevent errors if no fruits are assigned
         if (fruitPrefabs == null || fruitPrefabs.Length == 0)
         {
             return;
         }
 
+        // Calculate random spawn position
         Vector3 spawnPosition = new Vector3(
             Random.Range(-spawnXRange, spawnXRange),
             spawnYPosition,
             0f
         );
 
-        // Spawn bomb or fruit
+        // Decide whether to spawn a bomb or a fruit
         if (Random.value < bombSpawnChance && bombPrefab != null)
         {
             Instantiate(bombPrefab, spawnPosition, bombPrefab.transform.rotation);

@@ -10,7 +10,7 @@ public class GameOver : MonoBehaviour
 
     private void Start()
     {
-        // Find the GameManager automatically (needed for spawned objects)
+        // Get reference to GameManager in the scene
         GameObject managerObject = GameObject.Find("GameManager");
 
         if (managerObject != null)
@@ -21,10 +21,10 @@ public class GameOver : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Only react to the player
+        // Only react to the Player
         if (!other.CompareTag("Player")) return;
 
-        // Spawn explosion
+        // Spawn explosion effect
         if (explosionPrefab != null)
         {
             GameObject explosion = Instantiate(
@@ -36,16 +36,16 @@ public class GameOver : MonoBehaviour
             Destroy(explosion, explosionDuration);
         }
 
-        // Play sound
+        // Play explosion sound
         if (explosionSound != null)
         {
             AudioSource.PlayClipAtPoint(explosionSound, transform.position);
         }
 
-        // Destroy the bomb
+        // Destroy the bomb object
         Destroy(gameObject);
 
-        // Trigger Game Over
+        // Trigger Game Over state
         if (gameManager != null)
         {
             gameManager.TriggerGameOver();
