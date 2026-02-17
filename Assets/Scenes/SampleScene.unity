@@ -159,6 +159,11 @@ MonoBehaviour:
   spawnXRange: 1.5
   spawnYPosition: 2.1
   spawnInterval: 2
+  sideSpawnFrequency: 4
+  sideSpawnX: 3
+  sideSpawnY: 0.5
+  sideImpulseX: 3
+  sideImpulseY: 5
 --- !u!4 &222675433
 Transform:
   m_ObjectHideFlags: 0
@@ -515,6 +520,7 @@ MonoBehaviour:
   score: 0
   scoreText: {fileID: 627562087}
   wizard: {fileID: 1613432991}
+  gameManager: {fileID: 484054273}
 --- !u!4 &562415136
 Transform:
   m_ObjectHideFlags: 0

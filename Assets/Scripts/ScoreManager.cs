@@ -8,9 +8,11 @@ public class ScoreManager : MonoBehaviour
 
     public WizardController wizard;
 
+    // Reference to GameManager to access the background music AudioSource
+    public GameManager gameManager;
+
     private void Start()
     {
-        // Initialize UI with starting score
         UpdateScoreText();
     }
 
@@ -20,10 +22,16 @@ public class ScoreManager : MonoBehaviour
         score += value;
         UpdateScoreText();
 
-        // Trigger wizard animation every 50 points
+        // Wizard jumps every 50 points
         if (wizard != null && score % 50 == 0)
         {
             wizard.PlayJump();
+
+            // Increase music pitch to raise tension
+            if (gameManager != null && gameManager.musicSource != null)
+            {
+                gameManager.musicSource.pitch += 0.1f;
+            }
         }
     }
 
@@ -42,3 +50,4 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 }
+
