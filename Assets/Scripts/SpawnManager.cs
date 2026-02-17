@@ -87,11 +87,6 @@ public class SpawnManager : MonoBehaviour
 
     private float GetBombChance()
     {
-        if (rampUpSpawns <= 0)
-        {
-            return maxBombChance;
-        }
-
         if (spawnCount >= rampUpSpawns)
         {
             return maxBombChance;
