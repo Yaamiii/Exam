@@ -6,12 +6,23 @@ public class AddScore : MonoBehaviour
     public AudioClip collectSound;
 
     private ScoreManager scoreManager;
+    private JarManager jarManager;
 
     private void Start()
     {
         // Get reference to ScoreManager in the scene
-        scoreManager = GameObject.Find("ScoreManager")
-                                 .GetComponent<ScoreManager>();
+        GameObject scoreManagerObject = GameObject.Find("ScoreManager");
+        if (scoreManagerObject != null)
+        {
+            scoreManager = scoreManagerObject.GetComponent<ScoreManager>();
+        }
+
+        // Get reference to JarManager in the scene
+        GameObject jarManagerObject = GameObject.Find("JarManager");
+        if (jarManagerObject != null)
+        {
+            jarManager = jarManagerObject.GetComponent<JarManager>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,10 +30,16 @@ public class AddScore : MonoBehaviour
         // Only react if the Player enters the trigger
         if (!other.CompareTag("Player")) return;
 
-        // Add points to the score
+        // Add points
         if (scoreManager != null)
         {
             scoreManager.AddScore(points);
+        }
+
+        // Show one jar for each collected fruit
+        if (jarManager != null)
+        {
+            jarManager.ShowNextJar();
         }
 
         // Play collect sound
@@ -31,7 +48,8 @@ public class AddScore : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, transform.position);
         }
 
-        // Remove the collected object
+        // Destroy collected object
         Destroy(gameObject);
     }
 }
+
